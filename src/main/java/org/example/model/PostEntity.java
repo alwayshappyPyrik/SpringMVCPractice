@@ -2,7 +2,7 @@ package org.example.model;
 
 import java.util.Objects;
 
-public class PostEntity {
+public class PostEntity implements Comparable<PostEntity> {
     private long id;
     private String content;
     private boolean removed;
@@ -51,5 +51,10 @@ public class PostEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, content, removed);
+    }
+
+    @Override
+    public int compareTo(PostEntity o) {
+        return (int) (this.id - o.getId());
     }
 }

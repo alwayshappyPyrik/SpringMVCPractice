@@ -2,8 +2,9 @@ package org.example.service;
 
 import org.example.exception.NotFoundException;
 import org.example.mapper.PostMapper;
-import org.example.model.PostDTO;
 import org.example.model.PostEntity;
+import org.example.model.PostParameter;
+import org.example.model.PostResult;
 import org.example.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
@@ -20,20 +21,21 @@ public class PostService {
         this.postMapper = postMapper;
     }
 
-    public List<PostDTO> all() {
+    public List<PostResult> all() {
         return repository.all()
                 .stream()
-                .map(postMapper::mapToPostDTO)
+                .map(postMapper::mapToPostResult)
                 .collect(Collectors.toList());
     }
 
-//    public PostDTO getById(long id) {
-//        return repository.getById(id).orElseThrow(NotFoundException::new);
-//    }
+    public PostResult getById(long id) {
+        PostEntity postEntity = repository.getById(id).orElseThrow(NotFoundException::new);
+        return postMapper.mapToPostResult(postEntity);
+    }
 
-    public PostDTO save(PostDTO post) {
-        PostEntity postEntity = postMapper.mapToPostEntity(post);
-        return repository.save(postEntity);
+    public PostResult save(PostParameter postParameter) {
+        PostEntity postEntity = repository.save(postParameter);
+        return postMapper.mapToPostResult(postEntity);
     }
 
     public void removeById(long id) {

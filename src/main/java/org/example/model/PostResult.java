@@ -1,13 +1,13 @@
 package org.example.model;
 
-public class PostDTO {
+public class PostResult {
     private long id;
     private String content;
 
-    public PostDTO() {
+    public PostResult() {
     }
 
-    public PostDTO(long id, String content) {
+    public PostResult(long id, String content) {
         this.id = id;
         this.content = content;
     }
@@ -27,5 +27,4 @@ public class PostDTO {
     public void setContent(String content) {
         this.content = content;
     }
-
 }
